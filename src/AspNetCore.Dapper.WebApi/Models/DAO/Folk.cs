@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCore.Dapper.WebApi.Models.DAO
 {
-    public class User
+    public class Folk
     {
         [Key]
         public Guid Id { get; set; }
@@ -21,5 +21,6 @@ namespace AspNetCore.Dapper.WebApi.Models.DAO
 
         [StringLength(20)]
         public string Phone { get; set; }
+        public DateTimeOffset? EmploymentOn { get; set; }
     }
 }

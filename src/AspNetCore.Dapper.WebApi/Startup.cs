@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCore.Dapper.WebApi.Models.Config;
+using AspNetCore.Dapper.WebApi.Services;
+using AspNetCore.Dapper.WebApi.Utils.Factory;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +35,14 @@ namespace AspNetCore.Dapper.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AspNetCore.Dapper.WebApi", Version = "v1" });
             });
+
+            services.AddOptions();
+            services.Configure<AppSettings>(this.Configuration);
+
+            // Services
+            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+            services.AddSingleton<FolkDalService>();
+            services.AddHostedService<SyncDataWorker>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
