@@ -16,7 +16,6 @@ namespace AspNetCore.Dapper.WebApi.Services
      private const int SYNC_TIME_SECS = 30; // minute
         private readonly ILogger<SyncDataWorker> logger;
         private readonly AppSettings appSettings;
-        private readonly IServiceProvider serviceProvider = null;
         private readonly FolkDalService folkDalService;
         private Timer timer = null;
 

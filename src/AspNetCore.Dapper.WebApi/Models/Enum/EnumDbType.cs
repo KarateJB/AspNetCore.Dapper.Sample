@@ -1,15 +1,14 @@
-﻿namespace AspNetCore.Dapper.WebApi.Models.Enum
-{
-    public enum EnumDbType
-    {
-        /// <summary>
-        /// SQL Server
-        /// </summary>
-        SqlServer = 1,
+﻿namespace AspNetCore.Dapper.WebApi.Models.Enum;
 
-        /// <summary>
-        /// PostgreSQL
-        /// </summary>
-        Postgres = 2
-    }
+public enum EnumDbType
+{
+    /// <summary>
+    /// SQL Server
+    /// </summary>
+    SqlServer = 1,
+
+    /// <summary>
+    /// PostgreSQL
+    /// </summary>
+    Postgres = 2
 }

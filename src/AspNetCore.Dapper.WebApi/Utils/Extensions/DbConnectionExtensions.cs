@@ -38,14 +38,7 @@ namespace AspNetCore.Dapper.WebApi.Utils.Extensions
         /// <returns>Query result</returns>
         public static async Task<List<T>> GetAllAsync<T>(this IDbConnection db, string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
         {
-            try
-            {
-                return (await db.QueryAsync<T>(sp, parms, commandType: commandType)).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            return (await db.QueryAsync<T>(sp, parms, commandType: commandType)).ToList();
         }
 
         /// <summary>
@@ -73,15 +66,15 @@ namespace AspNetCore.Dapper.WebApi.Utils.Extensions
                     result = (await db.QueryAsync<T>(sp, parms, commandType: commandType, transaction: tran)).FirstOrDefault();
                     tran.Commit();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     tran.Rollback();
-                    throw ex;
+                    throw;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -125,7 +118,7 @@ namespace AspNetCore.Dapper.WebApi.Utils.Extensions
                     throw;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
