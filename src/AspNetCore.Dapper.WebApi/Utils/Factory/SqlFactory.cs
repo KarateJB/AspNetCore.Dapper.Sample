@@ -36,7 +36,7 @@ AND ""EmploymentOn"" <= to_date(@EndDate, 'YYYY-MM-DD');
         {
             case EnumDbType.SqlServer:
                 sql = @"
-MERGE INTO Folks a USING
+MERGE INTO Folks2 a USING
 (
     SELECT @Id            as Id,
            @Name          as Name,
@@ -68,6 +68,45 @@ DO UPDATE SET
 ""Address"" = @Address,
 ""Phone"" = @Phone,
 ""EmploymentOn"" = @EmploymentOn;
+";
+                break;
+        }
+
+        return sql;
+    }
+
+    public static string CreateDeleteFolk(EnumDbType dbType)
+    {
+        string sql = string.Empty;
+        switch (dbType)
+        {
+            case EnumDbType.SqlServer:
+                sql = @"DELETE FROM Folks WHERE Id = @Id";
+                break;
+
+            case EnumDbType.Postgres:
+                sql = @"DELETE FROM ""Folks"" WHERE ""Id"" = @Id";
+                break;
+        }
+
+        return sql;
+    }
+
+    public static string CreateQueryFolkById(EnumDbType dbType)
+    {
+        string sql = string.Empty;
+        switch (dbType)
+        {
+            case EnumDbType.SqlServer:
+                sql = @"
+SELECT Id, Name, Birthday, Address, Phone, EmploymentOn FROM Folks
+WHERE Id = @Id
+";
+                break;
+            case EnumDbType.Postgres:
+                sql = @"
+SELECT ""Id"", ""Name"", ""Birthday"", ""Address"", ""Phone"", ""EmploymentOn"" FROM public.""Folks""
+WHERE ""Id"" = @Id
 ";
                 break;
         }

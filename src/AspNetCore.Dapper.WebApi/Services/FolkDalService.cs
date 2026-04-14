@@ -40,7 +40,7 @@ namespace AspNetCore.Dapper.WebApi.Services
                 return 0;
 
             int totalMergedCnt = 0;
-            var db = await this.dbConnectioFactory.CreateAsync(EnumDbType.SqlServer, nameof(ConnectionStringOptions.Demo_MSSQL));
+            var db = await this.dbConnectioFactory.CreateAsync(EnumDbType.SqlServer, nameof(ConnectionStringOptions.Demo_PG));
             string sql = SqlFactory.CreateMergeFolk(EnumDbType.SqlServer);
 
             foreach (var folk in folks)
@@ -80,6 +80,60 @@ namespace AspNetCore.Dapper.WebApi.Services
             var folks = await this.GetAsync(startDate, endDate);
             var totalMergedCnt = await this.MergeAsync(folks);
             return totalMergedCnt;
+        }
+
+        public async Task<int> CreateAsync(Folk folk)
+        {
+            var db = await this.dbConnectioFactory.CreateAsync(EnumDbType.SqlServer, nameof(ConnectionStringOptions.Demo_MSSQL));
+            string sql = SqlFactory.CreateMergeFolk(EnumDbType.SqlServer);
+
+            var parms = new DynamicParameters();
+            parms.Add($"@{nameof(Folk.Id)}", Guid.NewGuid(), DbType.Guid, ParameterDirection.Input);
+            parms.Add($"@{nameof(Folk.Name)}", folk.Name, DbType.String, ParameterDirection.Input);
+            parms.Add($"@{nameof(Folk.Phone)}", folk.Phone, DbType.String, ParameterDirection.Input);
+            parms.Add($"@{nameof(Folk.Address)}", folk.Address, DbType.String, ParameterDirection.Input);
+            parms.Add($"@{nameof(Folk.Birthday)}", folk.Birthday, DbType.DateTimeOffset, ParameterDirection.Input);
+            parms.Add($"@{nameof(Folk.EmploymentOn)}", folk.EmploymentOn, DbType.DateTimeOffset, ParameterDirection.Input);
+
+            return await db.ExecuteAsync(sql, parms, commandType: CommandType.Text);
+        }
+
+        public async Task<int> DeleteAsync(Guid id)
+        {
+            var db = await this.dbConnectioFactory.CreateAsync(EnumDbType.SqlServer, nameof(ConnectionStringOptions.Demo_MSSQL));
+            string sql = SqlFactory.CreateDeleteFolk(EnumDbType.SqlServer);
+
+            var parms = new DynamicParameters();
+            parms.Add("@Id", id, DbType.Guid, ParameterDirection.Input);
+
+            return await db.ExecuteAsync(sql, parms, commandType: CommandType.Text);
+        }
+
+        public async Task<int> UpdateAsync(Folk folk)
+        {
+            var db = await this.dbConnectioFactory.CreateAsync(EnumDbType.SqlServer, nameof(ConnectionStringOptions.Demo_MSSQL));
+            string sql = SqlFactory.CreateMergeFolk(EnumDbType.SqlServer);
+
+            var parms = new DynamicParameters();
+            parms.Add($"@{nameof(Folk.Id)}", folk.Id, DbType.Guid, ParameterDirection.Input);
+            parms.Add($"@{nameof(Folk.Name)}", folk.Name, DbType.String, ParameterDirection.Input);
+            parms.Add($"@{nameof(Folk.Phone)}", folk.Phone, DbType.String, ParameterDirection.Input);
+            parms.Add($"@{nameof(Folk.Address)}", folk.Address, DbType.String, ParameterDirection.Input);
+            parms.Add($"@{nameof(Folk.Birthday)}", folk.Birthday, DbType.DateTimeOffset, ParameterDirection.Input);
+            parms.Add($"@{nameof(Folk.EmploymentOn)}", folk.EmploymentOn, DbType.DateTimeOffset, ParameterDirection.Input);
+
+            return await db.ExecuteAsync(sql, parms, commandType: CommandType.Text);
+        }
+
+        public async Task<Folk> GetByIdAsync(Guid id)
+        {
+            var db = await this.dbConnectioFactory.CreateAsync(EnumDbType.SqlServer, nameof(ConnectionStringOptions.Demo_MSSQL));
+            string sql = SqlFactory.CreateQueryFolkById(EnumDbType.SqlServer);
+
+            var parms = new DynamicParameters();
+            parms.Add("@Id", id, DbType.Guid, ParameterDirection.Input);
+
+            return await db.GetAsync<Folk>(sql, parms, CommandType.Text);
         }
     }
 }
