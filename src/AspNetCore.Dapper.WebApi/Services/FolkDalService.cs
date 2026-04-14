@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
@@ -40,8 +40,8 @@ namespace AspNetCore.Dapper.WebApi.Services
                 return 0;
 
             int totalMergedCnt = 0;
-            var db = await this.dbConnectioFactory.CreateAsync(EnumDbType.Postgres, nameof(ConnectionStringOptions.Demo_PG));
-            string sql = SqlFactory.CreateMergeFolk(EnumDbType.Postgres);
+            var db = await this.dbConnectioFactory.CreateAsync(EnumDbType.SqlServer, nameof(ConnectionStringOptions.Demo_MSSQL));
+            string sql = SqlFactory.CreateMergeFolk(EnumDbType.SqlServer);
 
             foreach (var folk in folks)
             {

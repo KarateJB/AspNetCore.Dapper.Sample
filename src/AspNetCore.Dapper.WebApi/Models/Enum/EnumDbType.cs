@@ -1,4 +1,4 @@
-﻿namespace AspNetCore.Dapper.WebApi.Models.Enum;
+namespace AspNetCore.Dapper.WebApi.Models.Enum;
 
 public enum EnumDbType
 {

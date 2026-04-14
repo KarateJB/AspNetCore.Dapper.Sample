@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AspNetCore.Dapper.WebApi.Models.DAO;

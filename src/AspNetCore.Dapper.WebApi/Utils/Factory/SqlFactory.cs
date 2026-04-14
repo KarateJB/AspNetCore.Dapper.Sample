@@ -1,4 +1,4 @@
-﻿using AspNetCore.Dapper.WebApi.Models.Enum;
+using AspNetCore.Dapper.WebApi.Models.Enum;
 
 namespace AspNetCore.Dapper.WebApi.Utils.Factory;
 

@@ -1,4 +1,4 @@
-﻿namespace AspNetCore.Dapper.WebApi.Models.Config;
+namespace AspNetCore.Dapper.WebApi.Models.Config;
 
 public class AppSettings
 {
