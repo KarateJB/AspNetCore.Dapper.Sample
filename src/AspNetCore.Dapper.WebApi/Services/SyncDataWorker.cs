@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AspNetCore.Dapper.WebApi.Models.Config;
@@ -13,13 +11,13 @@ namespace AspNetCore.Dapper.WebApi.Services
 {
     public class SyncDataWorker : IHostedService
     {
-     private const int SYNC_TIME_SECS = 30; // minute
+        private const int SYNC_TIME_SECS = 60;
         private readonly ILogger<SyncDataWorker> logger;
         private readonly AppSettings appSettings;
-        private readonly IServiceProvider serviceProvider = null;
         private readonly FolkDalService folkDalService;
         private Timer timer = null;
 
+        // Sync the data that "EmploymentOn" is between start and end dates.
         public SyncDataWorker(ILogger<SyncDataWorker> logger, IOptions<AppSettings> configuration, FolkDalService folkDalService)
         {
             this.logger = logger;
