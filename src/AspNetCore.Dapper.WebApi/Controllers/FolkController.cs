@@ -32,12 +32,15 @@ namespace AspNetCore.Dapper.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Remove(Guid id)
         {
             try
             {
-                await _folkDalService.DeleteAsync(id);
-                return Ok();
+                // TODO: should set a disable flag on a record instead of deleting it.
+                throw new NotImplementedException();
+
+                // await _folkDalService.DeleteAsync(id);
+                // return Ok();
             }
             catch (Exception ex)
             {

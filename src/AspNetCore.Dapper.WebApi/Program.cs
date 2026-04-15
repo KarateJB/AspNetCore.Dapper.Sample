@@ -2,6 +2,7 @@ using AspNetCore.Dapper.WebApi.Models.Config;
 using AspNetCore.Dapper.WebApi.Services;
 using AspNetCore.Dapper.WebApi.Utils.Factory;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddOptions();
 builder.Services.Configure<AppSettings>(builder.Configuration);
+// var connections = builder.Configuration.GetSection("ConnectionStrings").Get<ConnectionStringOptions>();
 
 // Services
 builder.Services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
